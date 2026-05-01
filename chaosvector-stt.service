@@ -1,0 +1,21 @@
+[Unit]
+Description=ChaosVector STT (Wyoming, faster-whisper tiny.en)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/opt/chaosvector-stt/venv/bin/python3 -m chaosvector_stt \
+    --model tiny.en \
+    --model-name faster-whisper-tiny.en \
+    --backend faster-whisper \
+    --device cpu \
+    --compute-type int8 \
+    --language en \
+    --uri tcp://0.0.0.0:10301
+WorkingDirectory=/opt/chaosvector-stt
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
